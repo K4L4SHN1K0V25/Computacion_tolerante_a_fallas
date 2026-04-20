@@ -1,0 +1,66 @@
+{
+  "name": "Error",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "500b9ba1-a600-4460-a28f-b0fc463c08e1",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "sendTo": "diazjosh0044@gmail.com",
+        "subject": "=error n8n -  {{ $json.workflow.name }}",
+        "emailType": "text",
+        "message": "=Trono el flujo por andar de vago {{ $json.execution.lastNodeExecuted }}, {{ $json.execution.error.message }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "b60679cc-688b-4f35-ad78-0fa8253b3094",
+      "name": "Send a message",
+      "webhookId": "184ca427-7019-4126-96ab-9f088aaf0416",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "3MOnmXjkFcwYUXuq",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "b1fa47ec-b6cf-4acc-99b3-29f80376fd15",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a1e76d04c9c1bc3036f07e24d385e0ab24ab5bddf96d41edd140e7fe9fc6e497"
+  },
+  "id": "43dLGEk2pHBe7pVF",
+  "tags": []
+}
