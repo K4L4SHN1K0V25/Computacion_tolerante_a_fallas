@@ -20,12 +20,14 @@
       ],
       "id": "8b3a3451-e733-425e-82e6-0d010d9a3a87",
       "name": "Gmail Trigger",
+      "retryOnFail": true,
       "credentials": {
         "gmailOAuth2": {
           "id": "3MOnmXjkFcwYUXuq",
           "name": "Gmail account"
         }
-      }
+      },
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -38,7 +40,7 @@
         "messages": {
           "values": [
             {
-              "content": "=Eres un asistente experto en clasificar correos electrónicos. Tu única tarea es analizar el remitente y el contenido de un correo y decidir si pertenece a la categoría 'linkedin' o 'otro'.\n\nClasificarás el correo como 'linkedin' si se cumplen AMBAS de las siguientes condiciones:\n1. El remitente es exactamente 'jobalerts-noreply@linkedin.com'.\n2. El asunto o el cuerpo del correo contiene la frase 'Ingeniero de software'.\n\nSi no se cumplen ambas condiciones, clasificarás el correo como 'otro'.\n\nTu respuesta debe ser UNA SOLA PALABRA: 'linkedin' o 'otro'. No añadas explicaciones, saludos ni ningún texto adicional.\n\n---\nRemitente: {{ $json.From }}\nAsunto y Cuerpo: {{ $json.Subject }} {{ $json.snippet }}"
+              "content": "=Eres un asistente experto en clasificar correos electrónicos. Tu única tarea es analizar el remitente y el contenido de un correo y decidir si pertenece a la categoría 'linkedin' o 'otro'.\n\nClasificarás el correo como 'linkedin' si se cumplen AMBAS de las siguientes condiciones:\n1. El remitente es exactamente 'jobalerts-noreply@linkedin.com'.\n2. El asunto o el cuerpo del correo contiene la frase 'Ingeniero de software' o 'Nuevos empleos similares'.\n\nSi no se cumplen ambas condiciones, clasificarás el correo como 'otro'.\n\nTu respuesta debe ser UNA SOLA PALABRA: 'linkedin' o 'otro'. No añadas explicaciones, saludos ni ningún texto adicional.\n\n---\nRemitente: {{ $json.From }}\nAsunto y Cuerpo: {{ $json.Subject }} {{ $json.snippet }}"
             }
           ]
         },
@@ -58,7 +60,8 @@
           "id": "G9dZFoZGbsY1Bpws",
           "name": "Google Gemini(PaLM) Api account"
         }
-      }
+      },
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -99,7 +102,7 @@
         "operation": "addLabels",
         "messageId": "={{ $('Gmail Trigger').item.json.id }}",
         "labelIds": [
-          "***REDACTED***"
+          "Label_8484210778805563061"
         ]
       },
       "type": "n8n-nodes-base.gmail",
@@ -213,6 +216,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -282,7 +292,7 @@
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": false
   },
-  "versionId": "33ee23f7-a63e-415b-accc-4bcc1309805f",
+  "versionId": "27a5cf7e-d2f8-46e1-9331-673c94d97fcc",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "a1e76d04c9c1bc3036f07e24d385e0ab24ab5bddf96d41edd140e7fe9fc6e497"
